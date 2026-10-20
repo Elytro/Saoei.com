@@ -1,23 +1,446 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>saoei.com</title>
-    <style>
-        body { font-family: -apple-system, "Segoe UI", sans-serif; display: flex;
-               min-height: 100vh; align-items: center; justify-content: center;
-               margin: 0; background: #f5f5f5; color: #333; }
-        .card { background: #fff; padding: 3rem 4rem; border-radius: 12px;
-                box-shadow: 0 4px 16px rgba(0,0,0,.08); text-align: center; }
-        h1 { margin: 0 0 .5rem; font-size: 1.6rem; }
-        p { margin: 0; color: #888; }
-    </style>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>赛博大善人 - Cloudflare 产品导航</title>
+<meta name="description" content="Cloudflare 产品引导首页 — CDN 加速、安全防护、边缘计算与零信任接入。">
+<link href="https://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+<style>
+  html { height: 100%; }
+  body {
+    display: flex; flex-direction: column; min-height: 100%;
+    background: #fbfcfd; color: #1d2129;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: #1d2129; text-decoration: none; transition: color .2s ease; }
+  a:hover, a:focus { color: #f6821f; text-decoration: none; }
+  .wrap { flex: 1 0 auto; }
+
+  /* ---------- 导航 ---------- */
+  .site-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1030;
+    background: rgba(255,255,255,.82);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid rgba(20,22,25,.06);
+    transition: box-shadow .25s ease;
+  }
+  .site-nav.scrolled { box-shadow: 0 1px 12px rgba(20,22,25,.06); }
+  .site-nav .navbar-inner { padding: 14px 0; }
+  .brand { font-size: 17px; font-weight: 600; letter-spacing: .3px; display: inline-block; }
+  .brand .logo {
+    display: inline-block; width: 26px; height: 26px; line-height: 26px; text-align: center;
+    border-radius: 7px; background: linear-gradient(135deg,#f6821f,#fbad41);
+    color: #fff; font-size: 13px; margin-right: 9px; vertical-align: -6px;
+    box-shadow: 0 2px 8px rgba(246,130,31,.35);
+  }
+  .nav-links { margin-top: 5px; }
+  .nav-links > li > a { font-size: 14px; color: #5c6470; padding: 6px 0 8px; margin-left: 26px; position: relative; }
+  .nav-links > li > a::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 2px; height: 2px;
+    background: #f6821f; border-radius: 2px; transform: scaleX(0); transition: transform .25s ease;
+  }
+  .nav-links > li > a:hover::after, .nav-links > li.active > a::after { transform: scaleX(1); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative; padding: 150px 0 82px; text-align: center; overflow: hidden;
+    background: #fff;
+  }
+  .hero::before {
+    content: ""; position: absolute; top: -260px; left: 50%; transform: translateX(-50%);
+    width: 1000px; height: 520px; border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(246,130,31,.14), rgba(246,130,31,0) 70%);
+  }
+  .hero::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(20,22,25,.10), transparent);
+  }
+  .hero .container { position: relative; z-index: 2; }
+  .badge-pill {
+    display: inline-block; font-size: 12.5px; color: #a35c10; letter-spacing: .3px;
+    background: rgba(246,130,31,.10); border: 1px solid rgba(246,130,31,.22);
+    border-radius: 999px; padding: 5px 14px; margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: 44px; line-height: 1.28; font-weight: 600; letter-spacing: -.8px;
+    margin: 0 0 20px;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(135deg,#f6821f,#fbad41);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p.lead {
+    color: #6b7280; font-size: 16px; line-height: 1.9; max-width: 640px; margin: 0 auto 34px;
+  }
+  .hero .actions .btn { min-width: 138px; margin: 0 6px; }
+
+  .btn-primary {
+    background: linear-gradient(135deg,#f79226,#f6821f); border: 0; border-radius: 6px;
+    padding: 11px 26px; font-size: 14.5px; color: #fff;
+    box-shadow: 0 4px 14px rgba(246,130,31,.32); transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    color: #fff; background: linear-gradient(135deg,#f79226,#ef7c17);
+    transform: translateY(-1px); box-shadow: 0 6px 18px rgba(246,130,31,.38);
+  }
+  .btn-ghost {
+    background: #fff; border: 1px solid #dfe3e8; border-radius: 6px; color: #1d2129;
+    padding: 11px 26px; font-size: 14.5px; transition: border-color .2s ease, background .2s ease;
+  }
+  .btn-ghost:hover, .btn-ghost:focus { color: #1d2129; background: #f7f8fa; border-color: #c9cfd6; }
+
+  /* ---------- 数据条 ---------- */
+  .stats { background: #fff; padding: 30px 0 34px; }
+  .stats .stat { text-align: center; padding: 12px 0; }
+  .stats .num { font-size: 28px; font-weight: 600; letter-spacing: -.5px; color: #1d2129; }
+  .stats .num small { font-size: 15px; font-weight: 500; color: #f6821f; }
+  .stats .label { font-size: 13px; color: #8a929e; margin-top: 4px; }
+  .stats .col-sm-3 + .col-sm-3 .stat { border-left: 1px solid #eef0f3; }
+
+  /* ---------- 产品 ---------- */
+  .section { padding: 74px 0 20px; }
+  .section-head { text-align: center; margin-bottom: 38px; }
+  .section-head .eyebrow {
+    font-size: 12px; letter-spacing: 2.4px; text-transform: uppercase;
+    color: #f6821f; font-weight: 600; margin-bottom: 10px;
+  }
+  .section-head h2 { font-size: 27px; font-weight: 600; letter-spacing: -.3px; margin: 0 0 10px; }
+  .section-head p { color: #8a929e; font-size: 14.5px; margin: 0; }
+
+  .row-cards > div { margin-bottom: 22px; }
+  .card {
+    height: 100%; background: #fff; border: 1px solid #eceff2; border-radius: 10px;
+    padding: 28px 26px 30px; position: relative; overflow: hidden;
+    transition: transform .28s cubic-bezier(.21,.61,.35,1), box-shadow .28s ease, border-color .28s ease;
+  }
+  .card::before {
+    content: ""; position: absolute; left: 0; top: 0; height: 3px; width: 100%;
+    background: linear-gradient(90deg,#f6821f,#fbad41); transform: scaleX(0); transform-origin: left;
+    transition: transform .3s ease;
+  }
+  .card:hover { transform: translateY(-4px); border-color: #e2e6ea; box-shadow: 0 10px 28px rgba(20,22,25,.08); }
+  .card:hover::before { transform: scaleX(1); }
+  .card .icon {
+    width: 42px; height: 42px; border-radius: 10px; margin-bottom: 16px;
+    background: rgba(246,130,31,.09); color: #f6821f;
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+  }
+  .card h3 { font-size: 16px; font-weight: 600; margin: 0 0 9px; }
+  .card p { font-size: 13.5px; line-height: 1.8; color: #6b7280; margin: 0 0 14px; }
+  .card .more { font-size: 13px; color: #f6821f; opacity: 0; transform: translateX(-4px); transition: all .28s ease; }
+  .card:hover .more { opacity: 1; transform: translateX(0); }
+
+  /* ---------- CTA ---------- */
+  .cta { padding: 20px 0 86px; }
+  .cta-box {
+    background: linear-gradient(135deg,#1d2129,#2c313a);
+    border-radius: 14px; padding: 52px 40px; text-align: center; color: #fff;
+    box-shadow: 0 14px 40px rgba(20,22,25,.14);
+  }
+  .cta-box h3 { font-size: 25px; font-weight: 600; margin: 0 0 12px; letter-spacing: -.3px; }
+  .cta-box p { color: rgba(255,255,255,.62); font-size: 14.5px; margin: 0 0 28px; }
+  .cta-box .btn-ghost { background: transparent; border-color: rgba(255,255,255,.28); color: #fff; }
+  .cta-box .btn-ghost:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.45); color: #fff; }
+
+  /* ---------- 底部 ---------- */
+  .site-footer { flex: none; background: #fff; border-top: 1px solid #eceff2; font-size: 13px; color: #8a929e; }
+  /* 主体导航区 */
+  .site-footer .f-main { padding: 42px 0 30px; }
+  .site-footer .f-brand .brand { font-size: 16px; }
+  .site-footer .f-brand p { font-size: 12.5px; color: #9aa2ad; line-height: 1.9; margin: 12px 0 14px; max-width: 320px; }
+  .site-footer .f-contact li { margin-bottom: 7px; font-size: 12.5px; color: #7a828e; }
+  .site-footer .f-contact i { width: 15px; color: #f6821f; margin-right: 7px; text-align: center; }
+  .site-footer h4 {
+    font-size: 14px; color: #1d2129; font-weight: 600; margin: 0 0 15px; padding-left: 10px; position: relative;
+  }
+  .site-footer h4::before {
+    content: ""; position: absolute; left: 0; top: 4px; bottom: 4px; width: 3px;
+    background: #f6821f; border-radius: 2px;
+  }
+  .site-footer .f-nav li { margin-bottom: 9px; }
+  .site-footer .f-nav a { color: #7a828e; font-size: 12.5px; }
+  .site-footer .f-nav a:hover { color: #f6821f; }
+  /* 版权备案条 */
+  .f-bottom {
+    background: #f7f8fa; border-top: 1px solid #eceff2;
+    padding: 18px 0 22px; text-align: center; line-height: 2;
+  }
+  .f-bottom .f-copy { font-size: 12.5px; color: #9aa2ad; }
+  .f-bottom .f-copy a { color: #7a828e; }
+  .f-bottom .f-copy a:hover { color: #f6821f; }
+  .f-bottom .sep { color: #dcdfe4; margin: 0 8px; }
+  .f-beian { margin-top: 8px; }
+  .f-beian a {
+    display: inline-block; margin: 3px 5px; padding: 3px 12px; font-size: 12.5px;
+    color: #8a929e; background: #fff; border: 1px solid #e6e9ed; border-radius: 3px;
+    transition: color .2s ease, border-color .2s ease;
+  }
+  .f-beian a:hover { color: #f6821f; border-color: rgba(246,130,31,.55); }
+  .f-beian .gongan {
+    display: inline-block; width: 15px; height: 15px; line-height: 15px; text-align: center;
+    border-radius: 2px; background: #4a7fd4; color: #fff; font-size: 9px;
+    margin-right: 5px; vertical-align: -1px;
+  }
+  .f-bottom .f-tip { margin: 8px 0 0; font-size: 12px; color: #b0b6bf; }
+
+  @media (max-width: 767px) {
+    .hero { padding: 118px 0 58px; }
+    .hero h1 { font-size: 29px; }
+    .hero p.lead { font-size: 15px; }
+    .hero .actions .btn { display: block; width: 100%; margin: 0 0 12px; }
+    .stats { padding: 20px 0 10px; }
+    .stats .col-sm-3 + .col-sm-3 .stat { border-left: 0; border-top: 1px solid #eef0f3; margin-top: 8px; padding-top: 18px; }
+    .section { padding: 52px 0 10px; }
+    .section-head h2 { font-size: 22px; }
+    .cta { padding: 10px 0 56px; }
+    .cta-box { padding: 38px 24px; }
+    .site-nav .navbar-inner { padding: 10px 0; }
+    .nav-links { display: none; }
+    .section-head { text-align: center; }
+    .site-footer .f-main { padding: 30px 0 20px; text-align: center; }
+    .site-footer .f-brand p { margin-left: auto; margin-right: auto; }
+    .site-footer .f-contact li { display: inline-block; margin: 0 10px; }
+    .site-footer h4 { margin-top: 22px; font-size: 13.5px; padding-left: 0; }
+    .site-footer h4::before { display: none; }
+  }
+</style>
 </head>
 <body>
-    <div class="card">
-        <h1>saoei.com</h1>
-        <p>Site initialized by oject.php</p>
+
+<nav class="site-nav" id="siteNav">
+  <div class="container">
+    <div class="navbar-inner">
+      <div class="row">
+        <div class="col-sm-4">
+          <a class="brand" href="#top">赛博大善人</a>
+        </div>
+        <div class="col-sm-8 text-right">
+          <ul class="list-inline nav-links" style="margin-bottom:0">
+            <li><a href="#products">产品</a></li>
+            <li><a href="#network">网络</a></li>
+            <li><a href="#start">上手</a></li>
+            <li><a href="#docs">文档</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+
+  <header class="hero">
+    <div class="container">
+      <span class="badge-pill"><i class="fa fa-circle-o" style="margin-right:6px"></i>全球边缘网络 · 330+ 城市</span>
+      <h1>让每一次访问都<span class="accent">更快、更安全</span></h1>
+      <p class="lead">Cloudflare 用一张覆盖全球的边缘网络承载你的全部业务流量 —— CDN 加速、DDoS 清洗、WAF 防护、边缘计算与零信任接入，一个平台全部搞定。</p>
+      <p class="actions">
+        <a class="btn btn-primary" href="#products">浏览产品</a>
+        <a class="btn btn-ghost" href="#start">免费开始使用</a>
+      </p>
+    </div>
+  </header>
+
+  <section class="stats" id="network">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 col-xs-6"><div class="stat"><div class="num">330<small>+</small></div><div class="label">边缘城市节点</div></div></div>
+        <div class="col-sm-3 col-xs-6"><div class="stat"><div class="num">20<small>%</small></div><div class="label">互联网站点使用</div></div></div>
+        <div class="col-sm-3 col-xs-6"><div class="stat"><div class="num">100<small>Tbps</small></div><div class="label">网络总容量</div></div></div>
+        <div class="col-sm-3 col-xs-6"><div class="stat"><div class="num">50<small>ms</small></div><div class="label">95% 用户覆盖延迟</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="products">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Products</div>
+        <h2>一套平台，覆盖性能与安全</h2>
+        <p>按需组合，分钟级生效，无需改动现有架构</p>
+      </div>
+      <div class="row row-cards">
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="icon"><i class="fa fa-globe"></i></div>
+            <h3>CDN 加速</h3>
+            <p>全球边缘节点缓存静态资源，智能路由与 Argo 隧道优化降低首字节时间，显著提升站点速度。</p>
+            <span class="more">了解更多 <i class="fa fa-long-arrow-right"></i></span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="icon"><i class="fa fa-shield"></i></div>
+            <h3>DDoS 防护</h3>
+            <p>Anycast 网络自动吸收 L3/L4/L7 大规模攻击，无限量清洗，无需额外硬件与带宽投入。</p>
+            <span class="more">了解更多 <i class="fa fa-long-arrow-right"></i></span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="icon"><i class="fa fa-lock"></i></div>
+            <h3>WAF 防火墙</h3>
+            <p>托管规则集配合自定义规则，拦截注入、XSS 与恶意爬虫，支持速率限制与机器人管理。</p>
+            <span class="more">了解更多 <i class="fa fa-long-arrow-right"></i></span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="icon"><i class="fa fa-server"></i></div>
+            <h3>DNS 解析</h3>
+            <p>权威 DNS 与 1.1.1.1 公共解析，秒级生效、DNSSEC 全链路签名，解析延迟行业领先。</p>
+            <span class="more">了解更多 <i class="fa fa-long-arrow-right"></i></span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="icon"><i class="fa fa-bolt"></i></div>
+            <h3>Workers 边缘计算</h3>
+            <p>在全球节点运行 JavaScript / Wasm，无需管理服务器，为请求添加逻辑、路由与个性化处理。</p>
+            <span class="more">了解更多 <i class="fa fa-long-arrow-right"></i></span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="icon"><i class="fa fa-database"></i></div>
+            <h3>R2 对象存储</h3>
+            <p>S3 兼容的对象存储，零出站流量费用，与 CDN 深度集成，适合静态站点与媒体资源分发。</p>
+            <span class="more">了解更多 <i class="fa fa-long-arrow-right"></i></span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="icon"><i class="fa fa-user-secret"></i></div>
+            <h3>Zero Trust 零信任</h3>
+            <p>替代传统 VPN，基于身份与设备状态的内网应用访问控制，最小化暴露面，远程办公更安全。</p>
+            <span class="more">了解更多 <i class="fa fa-long-arrow-right"></i></span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="icon"><i class="fa fa-certificate"></i></div>
+            <h3>SSL / TLS 加密</h3>
+            <p>免费证书自动签发与续期，支持 TLS 1.3、HTTP/2、HTTP/3 与严格端到端加密模式。</p>
+            <span class="more">了解更多 <i class="fa fa-long-arrow-right"></i></span>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="icon"><i class="fa fa-area-chart"></i></div>
+            <h3>数据分析与日志</h3>
+            <p>流量、缓存命中率与安全事件实时可视化，支持日志推送与 GraphQL Analytics API 查询。</p>
+            <span class="more">了解更多 <i class="fa fa-long-arrow-right"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="start">
+    <div class="container">
+      <div class="cta-box">
+        <h3>几分钟即可接入</h3>
+        <p>修改 NS 记录即可启用，免费套餐永久可用。</p>
+        <p class="actions">
+          <a class="btn btn-primary" href="#docs">查看接入文档</a>
+          <a class="btn btn-ghost" href="#products">对比套餐</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="site-footer" id="docs">
+  <div class="container">
+    <div class="row f-main">
+      <div class="col-md-4 col-sm-12 f-brand">
+        <a class="brand" href="#top"><span class="logo"><i class="fa fa-cloud"></i></span>Cloudflare 产品导航</a>
+        <p>面向国内开发者整理的 Cloudflare 产品索引与技术资料，帮助快速了解并接入全球边缘网络。</p>
+        <ul class="list-unstyled f-contact">
+          <li><i class="fa fa-envelope-o"></i>hi@saoei.com</li>
+          <li><i class="fa fa-clock-o"></i>工作日 9:00 - 18:00</li>
+        </ul>
+      </div>
+      <div class="col-md-2 col-sm-3 col-xs-6">
+        <h4>产品服务</h4>
+        <ul class="list-unstyled f-nav">
+          <li><a href="#products">CDN 加速</a></li>
+          <li><a href="#products">DDoS 防护</a></li>
+          <li><a href="#products">WAF 防火墙</a></li>
+          <li><a href="#products">DNS 解析</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2 col-sm-3 col-xs-6">
+        <h4>解决方案</h4>
+        <ul class="list-unstyled f-nav">
+          <li><a href="#products">站点加速</a></li>
+          <li><a href="#products">安全防护</a></li>
+          <li><a href="#products">边缘计算</a></li>
+          <li><a href="#products">零信任接入</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2 col-sm-3 col-xs-6">
+        <h4>开发者</h4>
+        <ul class="list-unstyled f-nav">
+          <li><a href="#docs">接入文档</a></li>
+          <li><a href="#docs">API 参考</a></li>
+          <li><a href="#docs">更新日志</a></li>
+          <li><a href="#network">服务状态</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2 col-sm-3 col-xs-6">
+        <h4>关于本站</h4>
+        <ul class="list-unstyled f-nav">
+          <li><a href="#top">站点简介</a></li>
+          <li><a href="#docs">意见反馈</a></li>
+          <li><a href="#docs">友情链接</a></li>
+          <li><a href="#docs">联系我们</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="f-bottom">
+    <div class="container">
+      <div class="f-copy">
+        Copyright &copy; 2026 <a href="#top">saoei.com</a> 版权所有
+        <span class="sep">|</span>本站仅提供产品导航与技术资料索引
+      </div>
+      <div class="f-beian">
+        <a href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow">
+          <i class="fa fa-file-text-o" style="margin-right:4px"></i>鲁ICP备2024092961号-30
+        </a>
+        <a href="http://www.beian.gov.cn/portal/registerSystemInfo" target="_blank" rel="nofollow">
+          <span class="gongan"><i class="fa fa-star"></i></span>鲁公网安备37130202373077号
+        </a>
+      </div>
+      <p class="f-tip">本站与 Cloudflare, Inc. 无隶属关系，相关商标归各自所有者所有。</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script>
+  $(function () {
+    var $nav = $('#siteNav');
+    $(window).on('scroll', function () {
+      $nav.toggleClass('scrolled', $(this).scrollTop() > 10);
+    }).trigger('scroll');
+
+    $('.nav-links a[href^="#"]').on('click', function (e) {
+      var target = $($(this).attr('href'));
+      if (!target.length) return;
+      e.preventDefault();
+      $('html, body').animate({ scrollTop: target.offset().top - 70 }, 450);
+    });
+  });
+</script>
 </body>
 </html>
